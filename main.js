@@ -1,3 +1,9 @@
+//variables para DOM
+let classtitulo = document.querySelector(".titulo")
+let classmensajes = document.querySelector(".mensajes")
+let classlistaCompra = document.querySelector(".listaCompra")
+let classproducto = document.getElementsByClassName("producto")
+
 class Producto {
     constructor( nombre, precio){
         
@@ -33,16 +39,35 @@ function buscarProducto(arr){
 }
 
 function addProductos(producto){
-    
-  
 
     arrProductosComprados.push(producto)
 
-}
+   //A medida que los elementos se van agregando voy creando una lista con los mismo.
+    let productoNuevo = document.createElement("li")
+    productoNuevo.innerHTML = `${producto.nombre}----$${producto.precio}`
+    productoNuevo.className = `producto`
+    console.log(productoNuevo)
+    classlistaCompra.appendChild(productoNuevo)
+    
+}   
+
 function mostrarProductos(array){
     console.log("Nuestros productos a la venta son:")
     //array.forEach(mercaderia => mercaderia.motrarInfoProducto() );
 }
+
+function calcularTotal(arrProdCompr){
+    let totalCompra = 0
+    arrProdCompr.forEach( 
+        (producto) => {
+            totalCompra=totalCompra + producto.precio
+        }
+    )
+    classtitulo.innerText = "Usted acaba de comprar los siguientes productos: "
+    classmensajes.innerText =`El total de la compra es de ${totalCompra}`
+    
+}
+
 let respuesta 
 
 
@@ -59,3 +84,7 @@ let respuesta
         }
         respuesta = parseInt(prompt(`¿Desea comprar algo mas ? \n 1:si \n 2:no`))
     }while(respuesta==1)
+
+    calcularTotal(arrProductosComprados)
+
+
